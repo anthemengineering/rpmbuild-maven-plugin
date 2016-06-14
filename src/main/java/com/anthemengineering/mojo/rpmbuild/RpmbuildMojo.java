@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Packages an RPM spec into an RPM using rpmbuild.
@@ -45,6 +46,9 @@ public class RpmbuildMojo extends AbstractMojo {
 
     @Parameter
     private List<Source> sources = Collections.emptyList();
+
+    @Parameter
+    private Map<String, String> defines = Collections.emptyMap();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -106,6 +110,11 @@ public class RpmbuildMojo extends AbstractMojo {
 
         cl.createArg().setValue("--define");
         cl.createArg().setValue("_topdir " + topdir.getAbsolutePath());
+
+        for (Map.Entry<String, String> e : defines.entrySet()) {
+            cl.createArg().setValue("--define");
+            cl.createArg().setValue(String.format("%s %s", e.getKey(), e.getValue()));
+        }
 
         cl.createArg().setValue(new File(new File(topdir, "SPECS"), spec.getName()).getAbsolutePath());
 

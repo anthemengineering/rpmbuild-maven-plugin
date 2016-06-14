@@ -46,6 +46,11 @@ limitations under the License.
                                     <destinationName>goodbye-1.0.txt</destinationName>
                                 </source>
                             </sources>
+
+                            <!-- Macros can be passed into rpmbuild -->
+                            <defines>
+                                <extrafilename>expected-filename</extrafilename>
+                            </defines>
                         </configuration>
                         <goals>
                             <goal>rpmbuild</goal>

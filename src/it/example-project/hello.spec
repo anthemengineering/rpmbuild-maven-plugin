@@ -28,11 +28,11 @@ mv foo bar
 %install
 mkdir -p %{buildroot}/usr/share/hello
 cp bar %{buildroot}/usr/share/hello
-
+touch %{buildroot}/usr/share/%{extrafilename}
 
 %files
 /usr/share/hello
-
+/usr/share/%{extrafilename}
 
 %changelog
 * Thu Jun 09 2016 Charles Simpson - 1.0-1
